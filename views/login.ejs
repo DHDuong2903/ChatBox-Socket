@@ -8,6 +8,21 @@
   <button id="btn_login">Login</button>
 </div>
 
+<div>
+  <caption>
+    <h1>Register</h1>
+  </caption>
+  <input type="text" name="username" id="ip_username2" placeholder="Enter username..." />
+  <br />
+  <input type="text" name="password" id="ip_password2" placeholder="Enter password..." />
+  <br />
+  <input type="text" name="password" id="ip_re_password" placeholder="Enter re password..." />
+  <br />
+  <input type="text" name="fullname" id="ip_fullname" placeholder="Enter fullname..." />
+  <button id="btn_register">Register</button>
+</div>
+
+<!-- Dang nhap -->
 <script>
   const btn_login = document.getElementById("btn_login");
   const ip_username = document.getElementById("ip_username");
@@ -30,7 +45,59 @@
     })
       .then((res) => res.json())
       .then((result) => {
-        alert(result);
+        if (result.statusCode) {
+          alert(result.message);
+        } else {
+          localStorage.setItem("username", result.username);
+          window.location = "/chat";
+        }
+      })
+      .catch((err) => {
+        alert("Error: " + err.message);
+      });
+  });
+</script>
+
+<!-- Dang ky -->
+<script>
+  const btn_register = document.getElementById("btn_register");
+  const ip_username2 = document.getElementById("ip_username2");
+  const ip_password2 = document.getElementById("ip_password2");
+  const ip_re_password = document.getElementById("ip_re_password");
+  const ip_fullname = document.getElementById("ip_fullname");
+
+  btn_register.addEventListener("click", () => {
+    const username = ip_username2.value;
+    const password = ip_password2.value;
+    const re_password = ip_re_password.value;
+    const fullname = ip_fullname.value;
+
+    if (password !== re_password) {
+      alert("Password incorrect");
+      return;
+    }
+
+    const obj = {
+      username: username,
+      password: password,
+      fullname: fullname,
+    };
+
+    fetch("/api/accounts/register", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.statusCode) {
+          alert(result.message);
+        } else {
+          alert("Register successfully");
+        }
       })
       .catch((err) => {
         alert("Error: " + err.message);

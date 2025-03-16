@@ -15,7 +15,7 @@ module.exports = {
     if (!account) {
       return res.status(404).json({
         statusCode: 404,
-        message: "Tài khoản hoặc mật khẩu không đúng",
+        message: "Username or password incorrect",
       });
     }
     return res.status(200).json(account);

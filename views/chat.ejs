@@ -1,18 +1,32 @@
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
 <div class="header">
   <h2 class="title">CHAT TIME</h2>
+  <button id="btn_friend">
+    <i class="fa-solid fa-user-group"></i>
+    <ul class="list_friend">
+      <% accounts.forEach(account => {%>
+
+      <li>
+        <img
+          src="https://preview.redd.it/j2ink51mnxz51.jpg?width=640&crop=smart&auto=webp&s=3941806f3fa697ea5849313b1b59f85d78ac1af1"
+          alt="avatar"
+        />
+        <p><%= account.username %></p>
+      </li>
+
+      <% }); %>
+    </ul>
+  </button>
 </div>
 <div class="container">
   <div class="container_join">
-    <input type="text" id="name" placeholder="Enter your name..." />
     <input type="text" id="room" placeholder="Enter room want to join..." />
     <button id="btn_join">Join</button>
   </div>
 
-  <ul id="ul_message">
-    
-  </ul>
+  <ul id="ul_message"></ul>
   <div class="container_send">
     <input type="text" id="ip_message" placeholder="Enter message..." />
     <button id="btn_send">Send</button>
@@ -21,3 +35,16 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/client.js"></script>
+
+<script>
+  const btn_friend = document.getElementById("btn_friend");
+  const list_friend = document.querySelector(".list_friend");
+
+  btn_friend.addEventListener("click", () => {
+    list_friend.classList.toggle("show");
+  });
+
+  list_friend.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+</script>
