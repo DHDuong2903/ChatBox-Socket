@@ -1,0 +1,39 @@
+<div>
+  <caption>
+    <h1>Login</h1>
+  </caption>
+  <input type="text" name="username" id="ip_username" placeholder="Enter username..." />
+  <br />
+  <input type="text" name="password" id="ip_password" placeholder="Enter password..." />
+  <button id="btn_login">Login</button>
+</div>
+
+<script>
+  const btn_login = document.getElementById("btn_login");
+  const ip_username = document.getElementById("ip_username");
+  const ip_password = document.getElementById("ip_password");
+
+  btn_login.addEventListener("click", () => {
+    const username = ip_username.value;
+    const password = ip_password.value;
+    const obj = {
+      username: username,
+      password: password,
+    };
+    fetch("/api/accounts/login", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        alert(result);
+      })
+      .catch((err) => {
+        alert("Error: " + err.message);
+      });
+  });
+</script>

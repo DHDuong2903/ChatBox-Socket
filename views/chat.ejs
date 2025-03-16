@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="header">
+  <h2 class="title">CHAT TIME</h2>
+</div>
+<div class="container">
+  <div class="container_join">
+    <input type="text" id="name" placeholder="Enter your name..." />
+    <input type="text" id="room" placeholder="Enter room want to join..." />
+    <button id="btn_join">Join</button>
+  </div>
+
+  <ul id="ul_message">
+    
+  </ul>
+  <div class="container_send">
+    <input type="text" id="ip_message" placeholder="Enter message..." />
+    <button id="btn_send">Send</button>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/client.js"></script>
