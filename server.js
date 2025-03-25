@@ -24,12 +24,14 @@ io.on("connection", (client) => {
   client.on("message", (data) => {
     io.to(room).emit("thread", data);
   });
+  client.on("emotion", (data) => {
+    io.to(room).emit("emotion", data);
+  });
 });
 
 connectDB();
 
 router(app);
-
 
 server.listen(3000, () => {
   console.log("Server run at http://localhost:3000");

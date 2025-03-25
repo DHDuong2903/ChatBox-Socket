@@ -105,7 +105,6 @@ button {
 button:hover {
   border: 2px solid #20b1f6;
   transform: scale(1.02);
-  cursor: pointer;
   color: #fff;
   transition: color 0.3s ease, transform 0.2s ease;
 }
@@ -158,10 +157,18 @@ input:hover {
 }
 
 #ul_message li {
-  width: fit-content;
-  max-width: 60%; /* Giới hạn chiều rộng tối đa để tránh quá dài */
-  background: linear-gradient(to right, #20b1f6, rgba(0, 245, 204, 0.66));
+  display: flex;
+  align-items: center;
   margin: 10px 0;
+}
+
+#ul_message li:hover .choose_emotion {
+  display: block !important;
+}
+
+#ul_message li span p {
+  width: fit-content;
+  background: linear-gradient(to right, #20b1f6, rgba(0, 245, 204, 0.66));
   padding: 8px 16px;
   border-radius: 25px;
   word-wrap: break-word;
@@ -170,7 +177,42 @@ input:hover {
   clear: both;
 }
 
+.choose_emotion {
+  position: relative;
+  margin: 0 5px;
+  display: none !important;
+}
+
+.emotions {
+  position: absolute;
+  top: 100%;
+  display: flex;
+  gap: 6px;
+  background-color: #333;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.emotions i:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
 .right {
-  float: right;
-  text-align: right;
+  flex-direction: row-reverse;
+}
+
+// Login / Register
+
+#login {
+  width: 50px;
+  background-color: red;
+}
+
+#login button {
+  width: 50px;
+}
+#register {
+  display: none;
 }
