@@ -4,7 +4,7 @@
 <div class="header">
   <h2 class="title">CHAT TIME</h2>
   <button id="btn_friend">
-    <i class="fa-solid fa-user-group"></i>
+    <i class="fa-solid fa-user-group" title="List friends"></i>
     <ul class="list_friend">
       <% accounts.forEach(account => {%>
 
@@ -39,6 +39,11 @@
   </ul>
 
   <div class="container_send">
+    <i class="fa-solid fa-images" title="Send files/images" id="send_file_icon"></i>
+
+    <input style="width: 20%; display: none" type="file" id="ip_image" />
+    <img style="width: 20%; display: none" alt="" id="img_message" />
+
     <input type="text" id="ip_message" placeholder="Enter message..." />
     <button id="btn_send">Send</button>
   </div>

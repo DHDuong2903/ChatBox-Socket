@@ -49,14 +49,41 @@ btn_join.addEventListener("click", () => {
 
 const sendMessage = () => {
   const message = ip_message.value.trim();
-  if (message !== "") {
-    let id = "";
-    for (let i = 0; i < 8; i++) {
-      id += Math.floor(Math.random() * 10);
-    }
+  const imageFile = ip_image?.files[0];
+  let id = "";
+  for (let i = 0; i < 8; i++) {
+    id += Math.floor(Math.random() * 10);
+  }
 
+  // Nếu có ảnh → gửi ảnh
+  if (imageFile) {
+    const formData = new FormData();
+    formData.append("img", imageFile);
+    fetch("/api/uploads", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const obj = {
+          id: +id,
+          name: my_name,
+          message: json.url, // là link ảnh
+        };
+
+        socket.emit("message", JSON.stringify(obj));
+        img_message.style.display = "none";
+        ip_image.value = ""; // Reset input file
+      })
+      .catch((error) => {
+        console.log("call api loi", error);
+      });
+  }
+
+  // Nếu có text → gửi text
+  if (message !== "") {
     const obj = {
-      id: +id, // Chuyen tu string sang number
+      id: +id + 1, // đảm bảo id khác với ảnh (tránh đụng nhau)
       name: my_name,
       message: message,
     };
@@ -83,7 +110,11 @@ socket.on("thread", (data) => {
   const li = document.createElement("li");
   li.innerHTML = `
     <span id=${obj.id}>
-      <p>${obj.message}</p>
+      ${
+        obj.message.startsWith("https")
+          ? `<p class="image-message"><img width="200px" padding=0px src="${obj.message}"></p>`
+          : `<p class="text-message">${obj.message}</p>`
+      }
     </span>
     <i onclick="show(event, ${obj.id})" class="choose_emotion fa-regular fa-face-smile"> </i>
   `;
@@ -166,4 +197,16 @@ socket.on("emotion", (data) => {
   emotion.style.borderRadius = "50%";
 
   span_message.appendChild(emotion);
+});
+
+const ip_image = document.getElementById("ip_image");
+const img_message = document.getElementById("img_message");
+
+document.getElementById("send_file_icon").addEventListener("click", () => {
+  ip_image.click();
+});
+
+ip_image.addEventListener("change", () => {
+  img_message.src = URL.createObjectURL(ip_image.files[0]);
+  img_message.style.display = "block";
 });

@@ -130,25 +130,38 @@ input:hover {
 
 .container_join {
   width: 100%;
-  height: 15%;
+  height: 12%;
   display: flex;
   flex-direction: column;
   gap: 10px 0;
 }
 .container_send {
   width: 100%;
-  height: 15%;
+  height: 20%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
   gap: 10px 0;
+  border-top: 1px solid #333;
+}
+
+.container_send i {
+  color: #333;
+  padding-top: 10px;
+}
+
+.container_send i:hover {
+  cursor: pointer;
+  color: #20b1f6;
+  /* transform: scale(1.5); */
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 #ul_message {
   list-style: none;
   font-size: 16px;
   font-weight: normal;
-  height: 70%;
+  height: 68%;
   overflow-y: scroll;
 }
 
@@ -176,6 +189,8 @@ input:hover {
   white-space: pre-wrap; /* Giữ nguyên khoảng trắng nhưng vẫn cho phép xuống dòng */
   clear: both;
 }
+
+
 
 .choose_emotion {
   position: relative;
@@ -205,14 +220,38 @@ input:hover {
 
 // Login / Register
 
-#login {
-  width: 50px;
-  background-color: red;
+.wrap {
 }
 
-#login button {
-  width: 50px;
+#login,
+#register {
+  width: 400px;
+  height: 55%;
+  margin: 100px auto;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
+
+#login button,
+#login input,
+#register button,
+#register input {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.options {
+  margin-top: 10px;
+}
+
+.options a {
+  color: #20b1f6;
+}
+
 #register {
   display: none;
 }
